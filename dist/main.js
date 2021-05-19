@@ -108,6 +108,10 @@ let speedTextSize;
 
 let cnvDimension;
 
+let saveText;
+
+let inp;
+
 function preload() {
   carpet = loadImage(`/images/background.png`);
   seqOn = loadImage(`/images/triangleOn.png`);
@@ -198,7 +202,8 @@ function setup() {  // setup p5
     x: width/2,
     y: height/10*0.75,
     text: 'Save',
-    colour: 'rgba(255, 255, 255, 0.9)'
+    colour: 'rgba(255, 255, 255, 0.9)',
+    status: false
   });
 
   for (let i = 0; i < numberOfloopers; i++) { // for each button build mouseState default array
@@ -212,6 +217,10 @@ function setup() {  // setup p5
   welcomeScreen(); // initial screen for project - also allows an elegant place to put in the Tone.start() command.
                     // if animating put an if statement in the draw() function otherwise it will instantly overide it
   createButtonPositions(); // generate the default array info depending on number of buttons
+  inp = createInput(([saveText]));
+  inp.parent('p5parent');
+  inp.position(cnvDimension/2, 0);
+  inp.size(cnvDimension/2);
 }
 
 function handleOrientationEvent() {
@@ -337,6 +346,15 @@ function drawSynth(step) { // instead of using the draw function at 60 frames a 
     fill('rgba(255, 255, 255, 0.7)');
     text(`BPM ${Math.round(Tone.Transport.bpm.value)}`, width/2, (height/3)*2);
   }
+
+  if(save.status){
+    saveShare();
+    save.status = false;
+  }
+}
+
+function saveShare(){
+
 }
 
 function startAudio() {
@@ -526,6 +544,7 @@ function handleClick(e){
 
     if(isMouseInsideText(save.text, save.x, save.y)){
       console.log("save");
+      save.status = true;
       save.colour = 'rgba(255, 0, 255, 0.9)'
       saveSeq();
       drawSynth();
@@ -587,9 +606,9 @@ let index = 0;
 
     const sampler = new Tone.Sampler({
       urls: {
-        A3: "step1.flac",
-        G3: "step2.flac",
-        E3: "step3.flac",
+        A3: "bassoonStep1.flac",
+        G3: "bassoonStep2.flac",
+        E3: "bassoonStep3.flac",
         D3: "loop1.flac"
       },
       baseUrl: "/sounds/",
@@ -681,6 +700,7 @@ function saveSeq() {
   url_ob.hash = `#${hexToSave}`;
   var new_url = url_ob.href;
   document.location.href = new_url;
+  saveText = new_url;
 }
 
 
