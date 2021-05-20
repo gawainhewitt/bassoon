@@ -237,7 +237,7 @@ function welcomeScreen() {
   textAlign(CENTER, CENTER);
   text("Bassoon", width/2, height/10 * 2);
   textSize(cnvDimension/20);
-  text( "Containing excerpts from Bozza Caprice#1 for solo bassoon recorded by Chris Rawley.", width/10, height/10, (width/10) * 8, (height/10) * 8);
+  text( "Containing excerpts from Bozza Caprice#1 for solo bassoon performed by Chris Rawley.", width/10, height/10, (width/10) * 8, (height/10) * 8);
   text( "Touch screen or click mouse to start", width/2, height/10 * 8);
 }
 
